@@ -1,0 +1,32 @@
+[
+ {
+  "track_id": 1,
+  "cls": 2,
+  "cls_name": "car",
+  "first_frame": 302,
+  "last_frame": 339,
+  "n_frames": 38,
+  "mean_trc": 0.687,
+  "flags": []
+ },
+ {
+  "track_id": 2,
+  "cls": 2,
+  "cls_name": "car",
+  "first_frame": 302,
+  "last_frame": 339,
+  "n_frames": 38,
+  "mean_trc": 0.687,
+  "flags": []
+ },
+ {
+  "track_id": 3,
+  "cls": 2,
+  "cls_name": "car",
+  "first_frame": 302,
+  "last_frame": 339,
+  "n_frames": 38,
+  "mean_trc": 0.687,
+  "flags": []
+ }
+]

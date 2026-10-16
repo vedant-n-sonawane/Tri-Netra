@@ -1,0 +1,72 @@
+[
+ {
+  "track_id": 1,
+  "cls": 1,
+  "cls_name": "person",
+  "first_frame": 2,
+  "last_frame": 99,
+  "n_frames": 98,
+  "mean_trc": 0.755,
+  "flags": []
+ },
+ {
+  "track_id": 2,
+  "cls": 2,
+  "cls_name": "car",
+  "first_frame": 3,
+  "last_frame": 99,
+  "n_frames": 94,
+  "mean_trc": 0.755,
+  "flags": []
+ },
+ {
+  "track_id": 3,
+  "cls": 2,
+  "cls_name": "car",
+  "first_frame": 6,
+  "last_frame": 99,
+  "n_frames": 88,
+  "mean_trc": 0.755,
+  "flags": []
+ },
+ {
+  "track_id": 7,
+  "cls": 2,
+  "cls_name": "car",
+  "first_frame": 37,
+  "last_frame": 47,
+  "n_frames": 11,
+  "mean_trc": 0.754,
+  "flags": []
+ },
+ {
+  "track_id": 8,
+  "cls": 1,
+  "cls_name": "person",
+  "first_frame": 41,
+  "last_frame": 49,
+  "n_frames": 7,
+  "mean_trc": 0.754,
+  "flags": []
+ },
+ {
+  "track_id": 11,
+  "cls": 2,
+  "cls_name": "car",
+  "first_frame": 76,
+  "last_frame": 95,
+  "n_frames": 20,
+  "mean_trc": 0.756,
+  "flags": []
+ },
+ {
+  "track_id": 12,
+  "cls": 1,
+  "cls_name": "person",
+  "first_frame": 98,
+  "last_frame": 99,
+  "n_frames": 2,
+  "mean_trc": 0.756,
+  "flags": []
+ }
+]
