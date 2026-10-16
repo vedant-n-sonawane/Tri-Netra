@@ -45,14 +45,15 @@ datasets:
       annotation_format: "voc"          # voc | kaist | coco
       # M3FD ships no official train/test split (unlike LLVIP) -> the whole
       # 4,200 pairs are pooled and split fresh by split_ratios below.
-      # M3FD's 6 raw classes -> unified ids. "Lamp" has no unified equivalent
-      # and is intentionally left unmapped (dropped at conversion time).
+      # M3FD's 6 raw classes -> unified ids. "Lamp" has no COCO equivalent, so it
+      # reuses a spare COCO head channel (see detection.class_id_map).
       class_map:
         people: 1
         car: 2
         bus: 3
         truck: 4
         motorcycle: 5
+        lamp: 7                      # added later; no COCO class -> see detection.class_id_map
 
   # Master COCO JSON produced by convert_annotations.py (pre-split).
   master_annotations: "datasets/annotations/instances_all.json"
@@ -65,6 +66,7 @@ datasets:
     - {id: 4, name: "truck",      supercategory: "vehicle"}
     - {id: 5, name: "motorcycle", supercategory: "vehicle"}
     - {id: 6, name: "cyclist",    supercategory: "human"}
+    - {id: 7, name: "lamp",       supercategory: "object"}
 
   # Image properties. M3FD native resolution is 1024x768; the model input
   # size below is what the DataLoader resizes to (width, height). Table 4
@@ -156,10 +158,15 @@ detection:
   input_size: [640, 640]          # match datasets.image_size (W, H)
   confidence_threshold: 0.25
   iou_threshold: 0.45
-  num_classes: 6                  # Unified ids (the head stays 80-class COCO)
+  num_classes: 7                  # Unified ids (the head stays 80-class COCO)
   # Phase 5 Option A: keep the frozen 80-class COCO head; map unified category
-  # ids to COCO class indices (person=1 -> COCO 0). Eval filters to these.
-  class_id_map: {1: 0}
+  # ids to COCO class indices. Eval/loss filter to these — any unified id not
+  # listed here is dropped from both the loss and the decoded predictions.
+  # Standard COCO80 order: person=0, bicycle=1, car=2, motorcycle=3,
+  # airplane=4, bus=5, train=6, truck=7. Extended for M3FD (person was the
+  # only entry while only LLVIP existed) so car/bus/truck/motorcycle boxes
+  # finally get a training signal too.
+  class_id_map: {1: 0, 2: 2, 3: 5, 4: 7, 5: 3, 7: 9}   # lamp(7) reuses COCO "traffic light"(9), the nearest pretrained channel
 
 # ── Fusion (Phase 4 — Layer 3: Adaptive Cross-Modal Fusion) ────────────────
 fusion:
@@ -182,11 +189,116 @@ fusion:
 
 # ── Tracking ───────────────────────────────────────────────────────────────
 tracking:
-  algorithm: "deepsort"           # Options: deepsort (bytetrack planned)
+  algorithm: "bytetrack"          # bytetrack (v1, default) | deepsort (legacy baseline) | botsort (v2, planned)
+  # -- legacy DeepSORT keys: read only when algorithm == "deepsort" --
   max_age: 30
   min_hits: 3
   iou_threshold: 0.3
   embedder: "mobilenet"          # appearance re-id model; null/none = motion+IoU only (no frame needed)
+  # -- ByteTrack + TRC gate (Phase 6 v1) --
+  kalman:
+    motion_model: "constant_velocity"
+  matching:
+    high_conf_threshold: 0.6      # stage-1 detections (also the new-track threshold)
+    low_conf_threshold: 0.1       # detections below this are discarded entirely
+    iou_threshold_stage1: 0.3     # minimum IoU to accept a stage-1 / tentative match
+    iou_threshold_stage2: 0.5     # minimum IoU at trc=1 for a low-confidence match
+    class_aware: false            # true = never match across detector classes
+  trc_gate:
+    enabled: true                 # TriNetra-specific; false = stock ByteTrack
+    beta: 0.5                     # cost inflation for low-TRC boxes: cost*(1+beta*(1-trc))
+  lifecycle:
+    n_init: 3                     # matches needed to confirm a tentative track
+    max_age: 30                   # frames a lost track is kept before removal
+  reid:                           # v1.5: pretrained appearance embedder (no identity-
+                                   # labelled data exists for this project, so nothing
+                                   # here is trained — see models/tracker/appearance.py)
+    enabled: false
+    weight: 0.3                   # 0 = IoU only, 1 = appearance only, blended per detection.
+                                   # Tuned on the real-clip stress test (utils/stress_eval.py):
+                                   # weight=0.5 roughly tripled ID switches vs. plain ByteTrack
+                                   # (the pretrained embedder is noisy on this low-res/night/
+                                   # aerial footage), but weight 0.2-0.3 cut ID switches by
+                                   # ~30% instead. On the synthetic benchmark (clean simulated
+                                   # appearance) higher weights also help, so 0.3 is a
+                                   # compromise, not a value optimized for either eval alone.
+    ema_alpha: 0.9                # smoothing of each track's running appearance embedding
+    classes: [1]                  # unified class ids the (person-)embedder is trusted for;
+                                   # every other class stays IoU-only (see byte_tracker.py)
+    reacquire_gap: 10             # frames a track must be LOST before stage 1.5 (appearance-
+                                   # only re-acquisition, no IoU) becomes eligible for it
+    weight_ambiguous: 0.9         # appearance weight used when a track has a close IoU
+                                   # competitor this frame (see `ambiguity_margin`)
+    ambiguity_margin: 0.0         # OFF by default. This targets root cause B (two nearby,
+                                   # continuously-tracked objects swapping identity, ~54% of
+                                   # all switches, see byte_tracker.py docstring) and on the
+                                   # synthetic benchmark it does help a little (crowding-type
+                                   # switches 155->151 over 15 seeds at margin=0.3) — but on the
+                                   # real-clip stress test it makes IDSW WORSE at every setting
+                                   # tried (4.17->5.0-7.3), because the pretrained embedder is
+                                   # least reliable in exactly the close-proximity situations
+                                   # this leans on it harder for. Root cause B is NOT solved;
+                                   # this mechanism is kept available (set e.g. 0.3) for future
+                                   # work with a better-trained embedder, not enabled now.
+    reacquire_thresh: 0.2         # cosine-distance ceiling for stage 1.5. Same story as `weight`
+                                   # above: the synthetic benchmark's clean simulated appearance
+                                   # wants this much looser (0.5 minimizes synthetic IDSW: 13.7->3.7,
+                                   # a 73% cut), but on the real-clip stress test (noisier pretrained
+                                   # embedder) 0.5 causes false reacquisitions and makes IDSW *worse*
+                                   # than not having this stage at all. 0.2 is the value that helps
+                                   # on both: synthetic IDSW 13.7->9.2 (33% cut, smaller than 0.5's
+                                   # but still real) and real-clip IDSW 6.17->3.83 (38% cut, on top
+                                   # of the gain from `weight` alone). Not optimal for either eval,
+                                   # safe for both.
+    embedding_dim: 128             # planned dual-modal (RGB+thermal) embedder, not yet trained
+    weights: "weights/tracker/dual_modal_reid.pt"
+  heading:                         # second attempt at root cause B (see byte_tracker.py docstring),
+                                   # independent of appearance/the embedder: penalizes a candidate
+                                   # detection that implies an implausible sudden direction change
+                                   # vs. the track's recent motion. Works for every class (not just
+                                   # person), unlike reid.*.
+                                   #
+                                   # OFF by default — tried, debugged, and still not a net win. Two
+                                   # real bugs were found and fixed (an unavailable heading was
+                                   # still dragging good matches toward a neutral cost; a heading
+                                   # estimated across a gap from a missed detection was trusted the
+                                   # same as a clean one) but even after both fixes the best setting
+                                   # measured on the synthetic benchmark (weight=0.3, margin=0.2) is
+                                   # a wash (261 vs 262 crowding-type switches over 15 seeds — not a
+                                   # real improvement), and it gets worse at any more assertive
+                                   # setting (352 at weight=0.8). Root cause, precisely diagnosed:
+                                   # heading-estimate reliability and IoU-match quality degrade from
+                                   # the SAME underlying cause (a missed detection / occlusion /
+                                   # low TRC), so an already-fragile match is exactly when heading is
+                                   # also least trustworthy — it tends to push weak-but-correct
+                                   # matches over the rejection threshold rather than rescue
+                                   # genuinely healthy-but-ambiguous crowding cases. Root cause B is
+                                   # NOT solved by this; a real fix needs a better underlying signal
+                                   # (denser motion estimation, e.g. optical flow, or a trained
+                                   # embedder), not a cleverer combination of these two.
+    enabled: false
+    weight: 0.5                   # max contribution when a track has a close IoU competitor
+    margin: 0.0                   # same ambiguity-gating idea as reid.ambiguity_margin; 0 = off
+    min_hist: 3                   # matched observations required before a track's heading is trusted
+    window: 5                     # frames spanned by the heading estimate
+    min_disp_frac: 0.05           # min net displacement over `window`, as a fraction of box height,
+                                   # before a heading is trusted (excludes loitering/near-stationary)
+  behaviour:
+    enabled: true
+    history_len: 300              # matched observations kept per track
+    speed_window: 5               # observations spanned when measuring speed
+    smooth_window: 5              # moving-average width for the trajectory
+    loiter_speed_thresh: 0.01     # box-heights/frame below which an object counts as still
+    move_speed_thresh: 0.02       # box-heights/frame above which a sample is real movement (walking ~0.03)
+    loitering_frame_threshold: 150
+    path_efficiency_threshold: 0.4
+    reversal_window: 20           # trailing velocity samples inspected for reversals
+    reversal_count_threshold: 2   # back-forth-back inside the window = pacing (a single U-turn is normal)
+    min_obs: 50                   # observations required before path-shape flags
+    zone_dwell_threshold: 25      # frames inside a restricted zone before flagging
+    low_trc_threshold: 0.5        # mean track TRC below this -> "low_trc_track"
+    flag_classes: [1, 5]          # unified ids that receive behaviour flags (person, motorcycle)
+    restricted_zones: []          # per-camera polygons in original-frame pixels: [[[x,y],...], ...]
 
 # ── Risk Assessment ───────────────────────────────────────────────────────
 risk_model:
