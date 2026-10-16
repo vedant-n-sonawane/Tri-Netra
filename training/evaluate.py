@@ -161,10 +161,17 @@ def _coco_map(coco_gt, results: List[dict], img_ids: List[int],
         v = float(s[i])
         return float("nan") if v < 0 else v
 
-    return {
+    out = {
         "mAP50_95": stat(0), "mAP50": stat(1), "mAP75": stat(2),
         "mAP_small": stat(3), "mAP_medium": stat(4), "mAP_large": stat(5),
     }
+    prec = ev.eval["precision"]  # [T, R, K, A, M]; IoU=0.5 -> row 0, area 'all', maxDets=100
+    for k, cid in enumerate(ev.params.catIds):
+        p = prec[0, :, k, 0, 2]
+        p = p[p > -1]
+        if p.size:
+            out[f"AP50_cat{cid}"] = float(p.mean())
+    return out
 
 
 def _precision_recall_f1(coco_gt, results: List[dict], img_ids: List[int],
