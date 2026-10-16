@@ -76,6 +76,18 @@ python utils/check_gpu.py
 
 Edit `configs/default.yaml` to point to your dataset and weight directories.
 
+### 4. Download the Trained Model
+
+The trained fusion + TRC detector is too large for the repository (164 MB), so it is published as a release asset:
+
+**[trinetra_fusion_trc_v1.pt](https://github.com/vedant-n-sonawane/Tri-Netra/releases/download/v1.0/trinetra_fusion_trc_v1.pt)** (release [v1.0](https://github.com/vedant-n-sonawane/Tri-Netra/releases/tag/v1.0)): M3FD test split, 630 pairs, mAP@50 **0.700**, mAP@50:95 **0.478**.
+
+SHA-256: `e7fac200784a5518c5b859effdadac8764484cc1bd70823ee9489f4d9a6bb124`
+
+```bash
+python -m training.evaluate --checkpoint weights/fusion/trinetra_fusion_trc_v1.pt --split test
+```
+
 ---
 
 ## Phase Roadmap
@@ -86,8 +98,8 @@ Edit `configs/default.yaml` to point to your dataset and weight directories.
 | 2     | Data acquisition & dataset preparation   | ✅ Complete   |
 | 3     | Preprocessing pipeline (TRC)             | ✅ Complete   |
 | 4     | Cross-modal fusion module                | ✅ Complete   |
-| 5     | Detection integration & training         | ✅ Code complete (training runs pending) |
-| 6     | Tracking & behaviour analysis            | 🔲 Planned   |
+| 5     | Detection integration & training         | ✅ Complete (trained model: release v1.0) |
+| 6     | Tracking & behaviour analysis            | ✅ Complete (ByteTrack + TRC gate, ReID, behaviour flags) |
 | 7     | Hierarchical threat reasoning            | 🔲 Planned   |
 | 8     | Explainable alert generation             | 🔲 Planned   |
 | 9     | Real-time inference & deployment         | 🔲 Planned   |
@@ -104,4 +116,4 @@ Edit `configs/default.yaml` to point to your dataset and weight directories.
 
 ## License
 
-Proprietary — see `Copyright-TriNetra.pdf` for details.
+Proprietary: all rights reserved by the TriNetra project team. The trained model published as release v1.0 is provided for research and educational use only.
