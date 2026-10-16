@@ -243,6 +243,7 @@ def fit(
     class_map = get_class_id_map(cfg)
     amp = bool(tcfg.get("mixed_precision", True)) and device.startswith("cuda")
     clip = float(tcfg.get("grad_clip_norm", 10.0))
+    accum = max(1, int(tcfg.get("grad_accum_steps", 1)))
     patience = (int(tcfg.get("early_stopping_patience", 15))
                 if early_stop_patience is None else early_stop_patience)
 
@@ -274,6 +275,7 @@ def fit(
         sched = torch.optim.lr_scheduler.CosineAnnealingLR(
             opt, T_max=max(1, epochs), eta_min=eta_min)
     scaler = torch.amp.GradScaler(enabled=amp)
+    fresh_lrs = [g["lr"] for g in opt.param_groups]
 
     start_epoch, best_map = 0, -1.0
     if resume:
@@ -282,11 +284,27 @@ def fit(
         opt.load_state_dict(ckpt["opt_state"])
         start_epoch = int(ckpt.get("epoch", -1)) + 1
         best_map = float(ckpt.get("best_map", -1.0))
-        # The LR schedule is a pure function of the epoch, so replay it rather
-        # than storing it — otherwise a resumed run restarts the cosine at its
-        # peak LR and undoes the decay already earned.
-        for _ in range(start_epoch):
-            sched.step()
+        # last.pt is written before best_map is updated for that epoch, so it can
+        # lag one epoch behind; best.pt always carries the true best.
+        try:
+            bp = out_dir / "best.pt"
+            if bp.exists():
+                best_map = max(best_map, float(torch.load(bp, map_location="cpu",
+                                                          weights_only=False).get("best_map", -1.0)))
+        except Exception:
+            pass
+        if warmup_epochs == 0:
+            # opt_state already carries the lr reached at the end of the last
+            # epoch. CosineAnnealingLR's recursive form continues from the current
+            # lr, so just advance its epoch counter — replaying steps here would
+            # decay the already-decayed lr a second time on every resume.
+            sched.last_epoch = start_epoch
+            sched._last_lr = [g["lr"] for g in opt.param_groups]
+        else:
+            for g, l in zip(opt.param_groups, fresh_lrs):
+                g["lr"] = l
+            for _ in range(start_epoch):
+                sched.step()
         print(f"  [OK] resumed {resume} at epoch {start_epoch} "
               f"(best mAP50 {best_map:.4f}, lr {opt.param_groups[0]['lr']:.2e})")
 
@@ -324,12 +342,15 @@ def fit(
                 preds = model(visible.to(device, non_blocking=True),
                               thermal.to(device, non_blocking=True), trc)
                 loss, items = loss_fn(preds, batch)
+            # v8DetectionLoss scales by batch size, so summing accum micro-batch
+            # gradients equals one full-batch gradient (no extra division).
             scaler.scale(loss.sum()).backward()
-            scaler.unscale_(opt)
-            clip_grad_norm_(trainable_params(model), clip)
-            scaler.step(opt)
-            scaler.update()
-            opt.zero_grad(set_to_none=True)
+            if (it + 1) % accum == 0 or it + 1 == len(train_loader):
+                scaler.unscale_(opt)
+                clip_grad_norm_(trainable_params(model), clip)
+                scaler.step(opt)
+                scaler.update()
+                opt.zero_grad(set_to_none=True)
 
             item_vals = torch.tensor(unpack_loss_items(items))
             running += item_vals
@@ -362,6 +383,20 @@ def fit(
             "epoch_time_s": round(epoch_time, 2),
         })
         csv_file.flush()
+
+        try:  # per-class AP50 per epoch, separate file so training_log.csv is unchanged
+            cats = [(int(c["id"]), c["name"]) for c in cfg["datasets"]["categories"]]
+            pc_path = out_dir / "per_class_log.csv"
+            new_file = not pc_path.exists()
+            with open(pc_path, "a", newline="", encoding="utf-8") as pf:
+                pw = csv.writer(pf)
+                if new_file:
+                    pw.writerow(["epoch"] + [f"AP50_{n}" for _, n in cats])
+                pw.writerow([epoch] + [
+                    "" if f"AP50_cat{i}" not in metrics else round(metrics[f"AP50_cat{i}"], 4)
+                    for i, _ in cats])
+        except Exception as e:  # never let logging kill a training run
+            print(f"  [WARN] per-class log failed: {e}")
 
         if writer:
             writer.add_scalar("val/mAP50", map50, epoch)
