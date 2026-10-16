@@ -1,0 +1,72 @@
+[
+ {
+  "track_id": 1,
+  "cls": 1,
+  "cls_name": "person",
+  "first_frame": 2,
+  "last_frame": 90,
+  "n_frames": 89,
+  "mean_trc": 0.724,
+  "flags": []
+ },
+ {
+  "track_id": 2,
+  "cls": 1,
+  "cls_name": "person",
+  "first_frame": 2,
+  "last_frame": 99,
+  "n_frames": 79,
+  "mean_trc": 0.723,
+  "flags": []
+ },
+ {
+  "track_id": 3,
+  "cls": 1,
+  "cls_name": "person",
+  "first_frame": 2,
+  "last_frame": 99,
+  "n_frames": 98,
+  "mean_trc": 0.723,
+  "flags": []
+ },
+ {
+  "track_id": 5,
+  "cls": 1,
+  "cls_name": "person",
+  "first_frame": 2,
+  "last_frame": 86,
+  "n_frames": 84,
+  "mean_trc": 0.724,
+  "flags": []
+ },
+ {
+  "track_id": 6,
+  "cls": 1,
+  "cls_name": "person",
+  "first_frame": 3,
+  "last_frame": 71,
+  "n_frames": 69,
+  "mean_trc": 0.725,
+  "flags": []
+ },
+ {
+  "track_id": 7,
+  "cls": 5,
+  "cls_name": "motorcycle",
+  "first_frame": 3,
+  "last_frame": 99,
+  "n_frames": 90,
+  "mean_trc": 0.724,
+  "flags": []
+ },
+ {
+  "track_id": 11,
+  "cls": 1,
+  "cls_name": "person",
+  "first_frame": 89,
+  "last_frame": 99,
+  "n_frames": 11,
+  "mean_trc": 0.719,
+  "flags": []
+ }
+]

@@ -1,0 +1,421 @@
+[
+ {
+  "track_id": 1,
+  "cls": 2,
+  "cls_name": "car",
+  "first_frame": 2,
+  "last_frame": 127,
+  "n_frames": 126,
+  "mean_trc": 0.748,
+  "flags": []
+ },
+ {
+  "track_id": 2,
+  "cls": 5,
+  "cls_name": "motorcycle",
+  "first_frame": 2,
+  "last_frame": 696,
+  "n_frames": 670,
+  "mean_trc": 0.751,
+  "flags": [
+   "erratic_path",
+   "pacing"
+  ]
+ },
+ {
+  "track_id": 3,
+  "cls": 1,
+  "cls_name": "person",
+  "first_frame": 2,
+  "last_frame": 659,
+  "n_frames": 658,
+  "mean_trc": 0.751,
+  "flags": [
+   "loitering"
+  ]
+ },
+ {
+  "track_id": 4,
+  "cls": 1,
+  "cls_name": "person",
+  "first_frame": 2,
+  "last_frame": 100,
+  "n_frames": 99,
+  "mean_trc": 0.746,
+  "flags": []
+ },
+ {
+  "track_id": 5,
+  "cls": 1,
+  "cls_name": "person",
+  "first_frame": 3,
+  "last_frame": 162,
+  "n_frames": 160,
+  "mean_trc": 0.75,
+  "flags": []
+ },
+ {
+  "track_id": 6,
+  "cls": 1,
+  "cls_name": "person",
+  "first_frame": 3,
+  "last_frame": 1499,
+  "n_frames": 1436,
+  "mean_trc": 0.745,
+  "flags": [
+   "loitering"
+  ]
+ },
+ {
+  "track_id": 7,
+  "cls": 5,
+  "cls_name": "motorcycle",
+  "first_frame": 3,
+  "last_frame": 659,
+  "n_frames": 656,
+  "mean_trc": 0.751,
+  "flags": [
+   "erratic_path",
+   "loitering",
+   "pacing"
+  ]
+ },
+ {
+  "track_id": 9,
+  "cls": 1,
+  "cls_name": "person",
+  "first_frame": 17,
+  "last_frame": 125,
+  "n_frames": 109,
+  "mean_trc": 0.748,
+  "flags": []
+ },
+ {
+  "track_id": 10,
+  "cls": 1,
+  "cls_name": "person",
+  "first_frame": 99,
+  "last_frame": 234,
+  "n_frames": 136,
+  "mean_trc": 0.756,
+  "flags": []
+ },
+ {
+  "track_id": 11,
+  "cls": 1,
+  "cls_name": "person",
+  "first_frame": 148,
+  "last_frame": 1499,
+  "n_frames": 1338,
+  "mean_trc": 0.745,
+  "flags": [
+   "erratic_path",
+   "loitering",
+   "pacing"
+  ]
+ },
+ {
+  "track_id": 12,
+  "cls": 1,
+  "cls_name": "person",
+  "first_frame": 154,
+  "last_frame": 788,
+  "n_frames": 614,
+  "mean_trc": 0.751,
+  "flags": [
+   "erratic_path"
+  ]
+ },
+ {
+  "track_id": 13,
+  "cls": 1,
+  "cls_name": "person",
+  "first_frame": 205,
+  "last_frame": 206,
+  "n_frames": 2,
+  "mean_trc": 0.757,
+  "flags": []
+ },
+ {
+  "track_id": 14,
+  "cls": 1,
+  "cls_name": "person",
+  "first_frame": 209,
+  "last_frame": 402,
+  "n_frames": 194,
+  "mean_trc": 0.753,
+  "flags": []
+ },
+ {
+  "track_id": 19,
+  "cls": 1,
+  "cls_name": "person",
+  "first_frame": 355,
+  "last_frame": 569,
+  "n_frames": 211,
+  "mean_trc": 0.75,
+  "flags": []
+ },
+ {
+  "track_id": 20,
+  "cls": 5,
+  "cls_name": "motorcycle",
+  "first_frame": 356,
+  "last_frame": 528,
+  "n_frames": 164,
+  "mean_trc": 0.75,
+  "flags": []
+ },
+ {
+  "track_id": 27,
+  "cls": 1,
+  "cls_name": "person",
+  "first_frame": 602,
+  "last_frame": 629,
+  "n_frames": 28,
+  "mean_trc": 0.751,
+  "flags": []
+ },
+ {
+  "track_id": 30,
+  "cls": 1,
+  "cls_name": "person",
+  "first_frame": 651,
+  "last_frame": 790,
+  "n_frames": 136,
+  "mean_trc": 0.748,
+  "flags": []
+ },
+ {
+  "track_id": 32,
+  "cls": 5,
+  "cls_name": "motorcycle",
+  "first_frame": 677,
+  "last_frame": 685,
+  "n_frames": 9,
+  "mean_trc": 0.748,
+  "flags": []
+ },
+ {
+  "track_id": 36,
+  "cls": 2,
+  "cls_name": "car",
+  "first_frame": 733,
+  "last_frame": 764,
+  "n_frames": 31,
+  "mean_trc": 0.748,
+  "flags": []
+ },
+ {
+  "track_id": 39,
+  "cls": 1,
+  "cls_name": "person",
+  "first_frame": 737,
+  "last_frame": 832,
+  "n_frames": 96,
+  "mean_trc": 0.747,
+  "flags": []
+ },
+ {
+  "track_id": 42,
+  "cls": 1,
+  "cls_name": "person",
+  "first_frame": 746,
+  "last_frame": 834,
+  "n_frames": 87,
+  "mean_trc": 0.746,
+  "flags": []
+ },
+ {
+  "track_id": 44,
+  "cls": 2,
+  "cls_name": "car",
+  "first_frame": 796,
+  "last_frame": 820,
+  "n_frames": 25,
+  "mean_trc": 0.745,
+  "flags": []
+ },
+ {
+  "track_id": 45,
+  "cls": 2,
+  "cls_name": "car",
+  "first_frame": 849,
+  "last_frame": 854,
+  "n_frames": 6,
+  "mean_trc": 0.745,
+  "flags": []
+ },
+ {
+  "track_id": 48,
+  "cls": 1,
+  "cls_name": "person",
+  "first_frame": 890,
+  "last_frame": 983,
+  "n_frames": 94,
+  "mean_trc": 0.744,
+  "flags": [
+   "pacing"
+  ]
+ },
+ {
+  "track_id": 50,
+  "cls": 1,
+  "cls_name": "person",
+  "first_frame": 922,
+  "last_frame": 949,
+  "n_frames": 28,
+  "mean_trc": 0.744,
+  "flags": []
+ },
+ {
+  "track_id": 55,
+  "cls": 1,
+  "cls_name": "person",
+  "first_frame": 1062,
+  "last_frame": 1068,
+  "n_frames": 7,
+  "mean_trc": 0.742,
+  "flags": []
+ },
+ {
+  "track_id": 57,
+  "cls": 1,
+  "cls_name": "person",
+  "first_frame": 1098,
+  "last_frame": 1302,
+  "n_frames": 202,
+  "mean_trc": 0.737,
+  "flags": []
+ },
+ {
+  "track_id": 58,
+  "cls": 1,
+  "cls_name": "person",
+  "first_frame": 1115,
+  "last_frame": 1285,
+  "n_frames": 171,
+  "mean_trc": 0.737,
+  "flags": []
+ },
+ {
+  "track_id": 60,
+  "cls": 5,
+  "cls_name": "motorcycle",
+  "first_frame": 1132,
+  "last_frame": 1147,
+  "n_frames": 16,
+  "mean_trc": 0.741,
+  "flags": []
+ },
+ {
+  "track_id": 61,
+  "cls": 1,
+  "cls_name": "person",
+  "first_frame": 1136,
+  "last_frame": 1190,
+  "n_frames": 55,
+  "mean_trc": 0.738,
+  "flags": []
+ },
+ {
+  "track_id": 64,
+  "cls": 1,
+  "cls_name": "person",
+  "first_frame": 1148,
+  "last_frame": 1235,
+  "n_frames": 72,
+  "mean_trc": 0.735,
+  "flags": []
+ },
+ {
+  "track_id": 67,
+  "cls": 1,
+  "cls_name": "person",
+  "first_frame": 1207,
+  "last_frame": 1245,
+  "n_frames": 36,
+  "mean_trc": 0.732,
+  "flags": []
+ },
+ {
+  "track_id": 69,
+  "cls": 1,
+  "cls_name": "person",
+  "first_frame": 1233,
+  "last_frame": 1326,
+  "n_frames": 93,
+  "mean_trc": 0.735,
+  "flags": []
+ },
+ {
+  "track_id": 71,
+  "cls": 1,
+  "cls_name": "person",
+  "first_frame": 1256,
+  "last_frame": 1361,
+  "n_frames": 106,
+  "mean_trc": 0.733,
+  "flags": []
+ },
+ {
+  "track_id": 72,
+  "cls": 1,
+  "cls_name": "person",
+  "first_frame": 1311,
+  "last_frame": 1401,
+  "n_frames": 86,
+  "mean_trc": 0.731,
+  "flags": []
+ },
+ {
+  "track_id": 73,
+  "cls": 5,
+  "cls_name": "motorcycle",
+  "first_frame": 1312,
+  "last_frame": 1390,
+  "n_frames": 48,
+  "mean_trc": 0.731,
+  "flags": []
+ },
+ {
+  "track_id": 81,
+  "cls": 1,
+  "cls_name": "person",
+  "first_frame": 1388,
+  "last_frame": 1491,
+  "n_frames": 104,
+  "mean_trc": 0.735,
+  "flags": []
+ },
+ {
+  "track_id": 88,
+  "cls": 1,
+  "cls_name": "person",
+  "first_frame": 1402,
+  "last_frame": 1417,
+  "n_frames": 16,
+  "mean_trc": 0.734,
+  "flags": []
+ },
+ {
+  "track_id": 94,
+  "cls": 1,
+  "cls_name": "person",
+  "first_frame": 1434,
+  "last_frame": 1499,
+  "n_frames": 66,
+  "mean_trc": 0.736,
+  "flags": []
+ },
+ {
+  "track_id": 95,
+  "cls": 1,
+  "cls_name": "person",
+  "first_frame": 1436,
+  "last_frame": 1499,
+  "n_frames": 64,
+  "mean_trc": 0.736,
+  "flags": []
+ }
+]

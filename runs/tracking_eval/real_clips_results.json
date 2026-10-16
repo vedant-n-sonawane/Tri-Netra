@@ -1,0 +1,910 @@
+{
+ "clips": [
+  {
+   "clip": "sequence_01",
+   "n_frames": 1500,
+   "trc": {
+    "mean": 0.7845971633563928,
+    "min": 0.7791556051963731,
+    "p5": 0.781591469786234,
+    "frac_below_0.6": 0.0
+   },
+   "trackers": {
+    "SORT-style": {
+     "n_tracks": 64,
+     "tracks_per_1k_frames": 42.666666666666664,
+     "len_mean": 103.734375,
+     "len_median": 44.5,
+     "len_p90": 278.6,
+     "short_ratio": 0.3125,
+     "coverage": 0.9687454359573536,
+     "frag_suspects": 13,
+     "frag_rate": 0.203125,
+     "jump_rate": 0.1531628120692296,
+     "recoveries": 224,
+     "mean_recovery_gap": 4.727678571428571,
+     "mean_concurrent": 4.426,
+     "tracker_ms_per_frame": 0.4882085333283612,
+     "n_frames": 1500,
+     "n_conf_dets": 6847
+    },
+    "DeepSORT (motion)": {
+     "n_tracks": 109,
+     "tracks_per_1k_frames": 72.66666666666667,
+     "len_mean": 76.22935779816514,
+     "len_median": 18.0,
+     "len_p90": 106.00000000000009,
+     "short_ratio": 0.5229357798165137,
+     "coverage": 0.9770702497444136,
+     "frag_suspects": 55,
+     "frag_rate": 0.5045871559633027,
+     "jump_rate": 0.0,
+     "recoveries": null,
+     "mean_recovery_gap": 0.0,
+     "mean_concurrent": 5.539333333333333,
+     "tracker_ms_per_frame": null,
+     "n_frames": 1500,
+     "n_conf_dets": 6847
+    },
+    "ByteTrack": {
+     "n_tracks": 49,
+     "tracks_per_1k_frames": 32.666666666666664,
+     "len_mean": 173.30612244897958,
+     "len_median": 61.0,
+     "len_p90": 374.80000000000024,
+     "short_ratio": 0.12244897959183673,
+     "coverage": 0.9763400029209873,
+     "frag_suspects": 4,
+     "frag_rate": 0.08163265306122448,
+     "jump_rate": 0.0,
+     "recoveries": 12,
+     "mean_recovery_gap": 8.5,
+     "mean_concurrent": 5.661333333333333,
+     "tracker_ms_per_frame": 0.6086671333220389,
+     "n_frames": 1500,
+     "n_conf_dets": 6847
+    },
+    "ByteTrack + TRC gate (ours)": {
+     "n_tracks": 50,
+     "tracks_per_1k_frames": 33.333333333333336,
+     "len_mean": 168.66,
+     "len_median": 56.5,
+     "len_p90": 366.9000000000001,
+     "short_ratio": 0.12,
+     "coverage": 0.9766321016503579,
+     "frag_suspects": 4,
+     "frag_rate": 0.08,
+     "jump_rate": 0.11946004061641381,
+     "recoveries": 22,
+     "mean_recovery_gap": 9.772727272727273,
+     "mean_concurrent": 5.622,
+     "tracker_ms_per_frame": 0.6036874000207415,
+     "n_frames": 1500,
+     "n_conf_dets": 6847
+    }
+   },
+   "flags": {
+    "tracks_with_flags": {},
+    "n_tracks": 50
+   }
+  },
+  {
+   "clip": "sequence_02",
+   "n_frames": 1500,
+   "trc": {
+    "mean": 0.7578522556795885,
+    "min": 0.7455460949450223,
+    "p5": 0.7509857915459319,
+    "frac_below_0.6": 0.0
+   },
+   "trackers": {
+    "SORT-style": {
+     "n_tracks": 32,
+     "tracks_per_1k_frames": 21.333333333333332,
+     "len_mean": 150.0625,
+     "len_median": 45.5,
+     "len_p90": 239.60000000000008,
+     "short_ratio": 0.40625,
+     "coverage": 0.974025974025974,
+     "frag_suspects": 3,
+     "frag_rate": 0.09375,
+     "jump_rate": 0.0,
+     "recoveries": 184,
+     "mean_recovery_gap": 3.4782608695652173,
+     "mean_concurrent": 3.2013333333333334,
+     "tracker_ms_per_frame": 0.37685766666072595,
+     "n_frames": 1500,
+     "n_conf_dets": 4928
+    },
+    "DeepSORT (motion)": {
+     "n_tracks": 47,
+     "tracks_per_1k_frames": 31.333333333333332,
+     "len_mean": 116.46808510638297,
+     "len_median": 41.0,
+     "len_p90": 199.0,
+     "short_ratio": 0.40425531914893614,
+     "coverage": 0.9825487012987013,
+     "frag_suspects": 9,
+     "frag_rate": 0.19148936170212766,
+     "jump_rate": 0.0,
+     "recoveries": null,
+     "mean_recovery_gap": 0.0,
+     "mean_concurrent": 3.6493333333333333,
+     "tracker_ms_per_frame": null,
+     "n_frames": 1500,
+     "n_conf_dets": 4928
+    },
+    "ByteTrack": {
+     "n_tracks": 30,
+     "tracks_per_1k_frames": 20.0,
+     "len_mean": 178.3,
+     "len_median": 77.5,
+     "len_p90": 253.10000000000008,
+     "short_ratio": 0.13333333333333333,
+     "coverage": 0.9746347402597403,
+     "frag_suspects": 2,
+     "frag_rate": 0.06666666666666667,
+     "jump_rate": 0.0,
+     "recoveries": 20,
+     "mean_recovery_gap": 6.3,
+     "mean_concurrent": 3.566,
+     "tracker_ms_per_frame": 0.409761733330015,
+     "n_frames": 1500,
+     "n_conf_dets": 4928
+    },
+    "ByteTrack + TRC gate (ours)": {
+     "n_tracks": 29,
+     "tracks_per_1k_frames": 19.333333333333332,
+     "len_mean": 182.6551724137931,
+     "len_median": 76.0,
+     "len_p90": 257.59999999999997,
+     "short_ratio": 0.10344827586206896,
+     "coverage": 0.9748376623376623,
+     "frag_suspects": 1,
+     "frag_rate": 0.034482758620689655,
+     "jump_rate": 0.0,
+     "recoveries": 30,
+     "mean_recovery_gap": 5.5,
+     "mean_concurrent": 3.5313333333333334,
+     "tracker_ms_per_frame": 0.4103587333290003,
+     "n_frames": 1500,
+     "n_conf_dets": 4928
+    }
+   },
+   "flags": {
+    "tracks_with_flags": {},
+    "n_tracks": 29
+   }
+  },
+  {
+   "clip": "sequence_03",
+   "n_frames": 1500,
+   "trc": {
+    "mean": 0.7813676215926536,
+    "min": 0.7754447447202908,
+    "p5": 0.7773492176459028,
+    "frac_below_0.6": 0.0
+   },
+   "trackers": {
+    "SORT-style": {
+     "n_tracks": 15,
+     "tracks_per_1k_frames": 10.0,
+     "len_mean": 110.8,
+     "len_median": 77.0,
+     "len_p90": 303.4,
+     "short_ratio": 0.3333333333333333,
+     "coverage": 0.9674039580908033,
+     "frag_suspects": 2,
+     "frag_rate": 0.13333333333333333,
+     "jump_rate": 0.6119951040391677,
+     "recoveries": 102,
+     "mean_recovery_gap": 3.480392156862745,
+     "mean_concurrent": 1.108,
+     "tracker_ms_per_frame": 0.16883726666977358,
+     "n_frames": 1500,
+     "n_conf_dets": 1718
+    },
+    "DeepSORT (motion)": {
+     "n_tracks": 31,
+     "tracks_per_1k_frames": 20.666666666666668,
+     "len_mean": 60.935483870967744,
+     "len_median": 18.0,
+     "len_p90": 204.0,
+     "short_ratio": 0.5161290322580645,
+     "coverage": 0.9662398137369034,
+     "frag_suspects": 11,
+     "frag_rate": 0.3548387096774194,
+     "jump_rate": 0.5434782608695652,
+     "recoveries": null,
+     "mean_recovery_gap": 0.0,
+     "mean_concurrent": 1.2593333333333334,
+     "tracker_ms_per_frame": null,
+     "n_frames": 1500,
+     "n_conf_dets": 1718
+    },
+    "ByteTrack": {
+     "n_tracks": 15,
+     "tracks_per_1k_frames": 10.0,
+     "len_mean": 125.93333333333334,
+     "len_median": 101.0,
+     "len_p90": 303.4,
+     "short_ratio": 0.13333333333333333,
+     "coverage": 0.9674039580908033,
+     "frag_suspects": 2,
+     "frag_rate": 0.13333333333333333,
+     "jump_rate": 0.0,
+     "recoveries": 12,
+     "mean_recovery_gap": 3.9166666666666665,
+     "mean_concurrent": 1.2593333333333334,
+     "tracker_ms_per_frame": 0.1863851333412943,
+     "n_frames": 1500,
+     "n_conf_dets": 1718
+    },
+    "ByteTrack + TRC gate (ours)": {
+     "n_tracks": 15,
+     "tracks_per_1k_frames": 10.0,
+     "len_mean": 125.33333333333333,
+     "len_median": 101.0,
+     "len_p90": 302.59999999999997,
+     "short_ratio": 0.13333333333333333,
+     "coverage": 0.9668218859138533,
+     "frag_suspects": 2,
+     "frag_rate": 0.13333333333333333,
+     "jump_rate": 0.0,
+     "recoveries": 17,
+     "mean_recovery_gap": 3.588235294117647,
+     "mean_concurrent": 1.2533333333333334,
+     "tracker_ms_per_frame": 0.18332733333833554,
+     "n_frames": 1500,
+     "n_conf_dets": 1718
+    }
+   },
+   "flags": {
+    "tracks_with_flags": {},
+    "n_tracks": 15
+   }
+  },
+  {
+   "clip": "sequence_04",
+   "n_frames": 1500,
+   "trc": {
+    "mean": 0.7807710610875708,
+    "min": 0.7697025140838993,
+    "p5": 0.7798853503403044,
+    "frac_below_0.6": 0.0
+   },
+   "trackers": {
+    "SORT-style": {
+     "n_tracks": 14,
+     "tracks_per_1k_frames": 9.333333333333334,
+     "len_mean": 137.07142857142858,
+     "len_median": 18.5,
+     "len_p90": 139.5000000000001,
+     "short_ratio": 0.5714285714285714,
+     "coverage": 0.9815856777493606,
+     "frag_suspects": 5,
+     "frag_rate": 0.35714285714285715,
+     "jump_rate": 0.0,
+     "recoveries": 38,
+     "mean_recovery_gap": 5.7631578947368425,
+     "mean_concurrent": 1.2793333333333334,
+     "tracker_ms_per_frame": 0.20138119999743748,
+     "n_frames": 1500,
+     "n_conf_dets": 1955
+    },
+    "DeepSORT (motion)": {
+     "n_tracks": 11,
+     "tracks_per_1k_frames": 7.333333333333333,
+     "len_mean": 199.9090909090909,
+     "len_median": 46.0,
+     "len_p90": 220.0,
+     "short_ratio": 0.18181818181818182,
+     "coverage": 0.9948849104859335,
+     "frag_suspects": 2,
+     "frag_rate": 0.18181818181818182,
+     "jump_rate": 0.0,
+     "recoveries": null,
+     "mean_recovery_gap": 0.0,
+     "mean_concurrent": 1.466,
+     "tracker_ms_per_frame": null,
+     "n_frames": 1500,
+     "n_conf_dets": 1955
+    },
+    "ByteTrack": {
+     "n_tracks": 12,
+     "tracks_per_1k_frames": 8.0,
+     "len_mean": 193.16666666666666,
+     "len_median": 22.0,
+     "len_p90": 507.90000000000015,
+     "short_ratio": 0.5833333333333334,
+     "coverage": 0.9846547314578005,
+     "frag_suspects": 5,
+     "frag_rate": 0.4166666666666667,
+     "jump_rate": 0.0,
+     "recoveries": 2,
+     "mean_recovery_gap": 18.5,
+     "mean_concurrent": 1.5453333333333332,
+     "tracker_ms_per_frame": 0.23256793332620873,
+     "n_frames": 1500,
+     "n_conf_dets": 1955
+    },
+    "ByteTrack + TRC gate (ours)": {
+     "n_tracks": 12,
+     "tracks_per_1k_frames": 8.0,
+     "len_mean": 193.16666666666666,
+     "len_median": 22.0,
+     "len_p90": 507.90000000000015,
+     "short_ratio": 0.5833333333333334,
+     "coverage": 0.9846547314578005,
+     "frag_suspects": 5,
+     "frag_rate": 0.4166666666666667,
+     "jump_rate": 0.0,
+     "recoveries": 2,
+     "mean_recovery_gap": 18.5,
+     "mean_concurrent": 1.5453333333333332,
+     "tracker_ms_per_frame": 0.23509246664252714,
+     "n_frames": 1500,
+     "n_conf_dets": 1955
+    }
+   },
+   "flags": {
+    "tracks_with_flags": {},
+    "n_tracks": 12
+   }
+  },
+  {
+   "clip": "sequence_05",
+   "n_frames": 1500,
+   "trc": {
+    "mean": 0.7847474921550406,
+    "min": 0.7833265259975635,
+    "p5": 0.7838176811685075,
+    "frac_below_0.6": 0.0
+   },
+   "trackers": {
+    "SORT-style": {
+     "n_tracks": 27,
+     "tracks_per_1k_frames": 18.0,
+     "len_mean": 192.62962962962962,
+     "len_median": 28.0,
+     "len_p90": 704.0000000000006,
+     "short_ratio": 0.48148148148148145,
+     "coverage": 0.983358547655068,
+     "frag_suspects": 5,
+     "frag_rate": 0.18518518518518517,
+     "jump_rate": 0.0,
+     "recoveries": 83,
+     "mean_recovery_gap": 3.7951807228915664,
+     "mean_concurrent": 3.4673333333333334,
+     "tracker_ms_per_frame": 0.3852012000079412,
+     "n_frames": 1500,
+     "n_conf_dets": 5288
+    },
+    "DeepSORT (motion)": {
+     "n_tracks": 35,
+     "tracks_per_1k_frames": 23.333333333333332,
+     "len_mean": 155.4857142857143,
+     "len_median": 27.0,
+     "len_p90": 368.40000000000026,
+     "short_ratio": 0.4857142857142857,
+     "coverage": 0.9844931921331316,
+     "frag_suspects": 11,
+     "frag_rate": 0.3142857142857143,
+     "jump_rate": 0.0,
+     "recoveries": null,
+     "mean_recovery_gap": 0.0,
+     "mean_concurrent": 3.628,
+     "tracker_ms_per_frame": null,
+     "n_frames": 1500,
+     "n_conf_dets": 5288
+    },
+    "ByteTrack": {
+     "n_tracks": 27,
+     "tracks_per_1k_frames": 18.0,
+     "len_mean": 201.37037037037038,
+     "len_median": 26.0,
+     "len_p90": 718.4000000000005,
+     "short_ratio": 0.4074074074074074,
+     "coverage": 0.9835476550680786,
+     "frag_suspects": 7,
+     "frag_rate": 0.25925925925925924,
+     "jump_rate": 0.1850481125092524,
+     "recoveries": 18,
+     "mean_recovery_gap": 6.333333333333333,
+     "mean_concurrent": 3.6246666666666667,
+     "tracker_ms_per_frame": 0.3965850000046582,
+     "n_frames": 1500,
+     "n_conf_dets": 5288
+    },
+    "ByteTrack + TRC gate (ours)": {
+     "n_tracks": 28,
+     "tracks_per_1k_frames": 18.666666666666668,
+     "len_mean": 193.57142857142858,
+     "len_median": 26.5,
+     "len_p90": 690.3000000000002,
+     "short_ratio": 0.39285714285714285,
+     "coverage": 0.9831694402420574,
+     "frag_suspects": 8,
+     "frag_rate": 0.2857142857142857,
+     "jump_rate": 0.18566654288897141,
+     "recoveries": 19,
+     "mean_recovery_gap": 6.157894736842105,
+     "mean_concurrent": 3.6133333333333333,
+     "tracker_ms_per_frame": 0.3963721333335949,
+     "n_frames": 1500,
+     "n_conf_dets": 5288
+    }
+   },
+   "flags": {
+    "tracks_with_flags": {},
+    "n_tracks": 28
+   }
+  },
+  {
+   "clip": "sequence_06",
+   "n_frames": 1500,
+   "trc": {
+    "mean": 0.7522151786943061,
+    "min": 0.7185644561489073,
+    "p5": 0.7352210147043929,
+    "frac_below_0.6": 0.0
+   },
+   "trackers": {
+    "SORT-style": {
+     "n_tracks": 55,
+     "tracks_per_1k_frames": 36.666666666666664,
+     "len_mean": 97.67272727272727,
+     "len_median": 29.0,
+     "len_p90": 188.2,
+     "short_ratio": 0.4909090909090909,
+     "coverage": 0.9529495633576902,
+     "frag_suspects": 6,
+     "frag_rate": 0.10909090909090909,
+     "jump_rate": 0.3806623524933384,
+     "recoveries": 326,
+     "mean_recovery_gap": 4.4815950920245395,
+     "mean_concurrent": 3.5813333333333333,
+     "tracker_ms_per_frame": 0.41919553334082593,
+     "n_frames": 1500,
+     "n_conf_dets": 5611
+    },
+    "DeepSORT (motion)": {
+     "n_tracks": 101,
+     "tracks_per_1k_frames": 67.33333333333333,
+     "len_mean": 62.772277227722775,
+     "len_median": 17.0,
+     "len_p90": 87.0,
+     "short_ratio": 0.5841584158415841,
+     "coverage": 0.9636428444127606,
+     "frag_suspects": 34,
+     "frag_rate": 0.33663366336633666,
+     "jump_rate": 0.16350555918901244,
+     "recoveries": null,
+     "mean_recovery_gap": 0.0,
+     "mean_concurrent": 4.226666666666667,
+     "tracker_ms_per_frame": null,
+     "n_frames": 1500,
+     "n_conf_dets": 5611
+    },
+    "ByteTrack": {
+     "n_tracks": 58,
+     "tracks_per_1k_frames": 38.666666666666664,
+     "len_mean": 107.17241379310344,
+     "len_median": 44.5,
+     "len_p90": 202.60000000000002,
+     "short_ratio": 0.43103448275862066,
+     "coverage": 0.9520584566031011,
+     "frag_suspects": 7,
+     "frag_rate": 0.1206896551724138,
+     "jump_rate": 0.0,
+     "recoveries": 61,
+     "mean_recovery_gap": 7.639344262295082,
+     "mean_concurrent": 4.144,
+     "tracker_ms_per_frame": 0.4761525999905037,
+     "n_frames": 1500,
+     "n_conf_dets": 5611
+    },
+    "ByteTrack + TRC gate (ours)": {
+     "n_tracks": 56,
+     "tracks_per_1k_frames": 37.333333333333336,
+     "len_mean": 110.19642857142857,
+     "len_median": 45.5,
+     "len_p90": 202.5,
+     "short_ratio": 0.39285714285714285,
+     "coverage": 0.9529495633576902,
+     "frag_suspects": 5,
+     "frag_rate": 0.08928571428571429,
+     "jump_rate": 0.0,
+     "recoveries": 71,
+     "mean_recovery_gap": 7.676056338028169,
+     "mean_concurrent": 4.114,
+     "tracker_ms_per_frame": 0.47635993332369253,
+     "n_frames": 1500,
+     "n_conf_dets": 5611
+    }
+   },
+   "flags": {
+    "tracks_with_flags": {},
+    "n_tracks": 56
+   }
+  },
+  {
+   "clip": "sequence_07",
+   "n_frames": 1500,
+   "trc": {
+    "mean": 0.7233820954047199,
+    "min": 0.6824408438378615,
+    "p5": 0.6971389323599093,
+    "frac_below_0.6": 0.0
+   },
+   "trackers": {
+    "SORT-style": {
+     "n_tracks": 66,
+     "tracks_per_1k_frames": 44.0,
+     "len_mean": 93.0,
+     "len_median": 49.5,
+     "len_p90": 283.5,
+     "short_ratio": 0.30303030303030304,
+     "coverage": 0.956338028169014,
+     "frag_suspects": 19,
+     "frag_rate": 0.2878787878787879,
+     "jump_rate": 0.33294489761944396,
+     "recoveries": 363,
+     "mean_recovery_gap": 4.2754820936639115,
+     "mean_concurrent": 4.092,
+     "tracker_ms_per_frame": 0.47456013333006314,
+     "n_frames": 1500,
+     "n_conf_dets": 6390
+    },
+    "DeepSORT (motion)": {
+     "n_tracks": 87,
+     "tracks_per_1k_frames": 58.0,
+     "len_mean": 82.75862068965517,
+     "len_median": 35.0,
+     "len_p90": 234.6000000000002,
+     "short_ratio": 0.3793103448275862,
+     "coverage": 0.9690140845070423,
+     "frag_suspects": 28,
+     "frag_rate": 0.3218390804597701,
+     "jump_rate": 0.0,
+     "recoveries": null,
+     "mean_recovery_gap": 0.0,
+     "mean_concurrent": 4.8,
+     "tracker_ms_per_frame": null,
+     "n_frames": 1500,
+     "n_conf_dets": 6390
+    },
+    "ByteTrack": {
+     "n_tracks": 65,
+     "tracks_per_1k_frames": 43.333333333333336,
+     "len_mean": 107.73846153846154,
+     "len_median": 69.0,
+     "len_p90": 244.20000000000002,
+     "short_ratio": 0.2,
+     "coverage": 0.9588419405320814,
+     "frag_suspects": 20,
+     "frag_rate": 0.3076923076923077,
+     "jump_rate": 0.28947749312490956,
+     "recoveries": 78,
+     "mean_recovery_gap": 6.4743589743589745,
+     "mean_concurrent": 4.668666666666667,
+     "tracker_ms_per_frame": 0.519076733339413,
+     "n_frames": 1500,
+     "n_conf_dets": 6390
+    },
+    "ByteTrack + TRC gate (ours)": {
+     "n_tracks": 66,
+     "tracks_per_1k_frames": 44.0,
+     "len_mean": 104.34848484848484,
+     "len_median": 64.5,
+     "len_p90": 267.5,
+     "short_ratio": 0.21212121212121213,
+     "coverage": 0.9575899843505478,
+     "frag_suspects": 20,
+     "frag_rate": 0.30303030303030304,
+     "jump_rate": 0.2946810078090467,
+     "recoveries": 94,
+     "mean_recovery_gap": 5.968085106382978,
+     "mean_concurrent": 4.591333333333333,
+     "tracker_ms_per_frame": 0.5143040000002657,
+     "n_frames": 1500,
+     "n_conf_dets": 6390
+    }
+   },
+   "flags": {
+    "tracks_with_flags": {},
+    "n_tracks": 66
+   }
+  },
+  {
+   "clip": "sequence_08",
+   "n_frames": 1500,
+   "trc": {
+    "mean": 0.745173902517458,
+    "min": 0.7271878691818796,
+    "p5": 0.7316891048963878,
+    "frac_below_0.6": 0.0
+   },
+   "trackers": {
+    "SORT-style": {
+     "n_tracks": 46,
+     "tracks_per_1k_frames": 30.666666666666668,
+     "len_mean": 149.7826086956522,
+     "len_median": 64.0,
+     "len_p90": 416.5,
+     "short_ratio": 0.32608695652173914,
+     "coverage": 0.9759070294784581,
+     "frag_suspects": 7,
+     "frag_rate": 0.15217391304347827,
+     "jump_rate": 0.0,
+     "recoveries": 397,
+     "mean_recovery_gap": 4.123425692695214,
+     "mean_concurrent": 4.593333333333334,
+     "tracker_ms_per_frame": 0.4979064000108337,
+     "n_frames": 1500,
+     "n_conf_dets": 7056
+    },
+    "DeepSORT (motion)": {
+     "n_tracks": 88,
+     "tracks_per_1k_frames": 58.666666666666664,
+     "len_mean": 95.9090909090909,
+     "len_median": 22.0,
+     "len_p90": 295.6999999999999,
+     "short_ratio": 0.5227272727272727,
+     "coverage": 0.9804421768707483,
+     "frag_suspects": 30,
+     "frag_rate": 0.3409090909090909,
+     "jump_rate": 0.0,
+     "recoveries": null,
+     "mean_recovery_gap": 0.0,
+     "mean_concurrent": 5.626666666666667,
+     "tracker_ms_per_frame": null,
+     "n_frames": 1500,
+     "n_conf_dets": 7056
+    },
+    "ByteTrack": {
+     "n_tracks": 43,
+     "tracks_per_1k_frames": 28.666666666666668,
+     "len_mean": 194.32558139534885,
+     "len_median": 96.0,
+     "len_p90": 610.000000000001,
+     "short_ratio": 0.13953488372093023,
+     "coverage": 0.9766156462585034,
+     "frag_suspects": 6,
+     "frag_rate": 0.13953488372093023,
+     "jump_rate": 0.0,
+     "recoveries": 29,
+     "mean_recovery_gap": 6.655172413793103,
+     "mean_concurrent": 5.570666666666667,
+     "tracker_ms_per_frame": 0.5809910666697155,
+     "n_frames": 1500,
+     "n_conf_dets": 7056
+    },
+    "ByteTrack + TRC gate (ours)": {
+     "n_tracks": 40,
+     "tracks_per_1k_frames": 26.666666666666668,
+     "len_mean": 206.375,
+     "len_median": 95.0,
+     "len_p90": 656.2,
+     "short_ratio": 0.15,
+     "coverage": 0.9781746031746031,
+     "frag_suspects": 3,
+     "frag_rate": 0.075,
+     "jump_rate": 0.0,
+     "recoveries": 40,
+     "mean_recovery_gap": 6.025,
+     "mean_concurrent": 5.503333333333333,
+     "tracker_ms_per_frame": 0.5819068000031014,
+     "n_frames": 1500,
+     "n_conf_dets": 7056
+    }
+   },
+   "flags": {
+    "tracks_with_flags": {},
+    "n_tracks": 40
+   }
+  }
+ ],
+ "aggregate": {
+  "SORT-style": {
+   "n_tracks": {
+    "mean": 39.875,
+    "std": 20.863074009907006,
+    "sum": 319.0
+   },
+   "len_median": {
+    "mean": 44.5,
+    "std": 19.46058287190509,
+    "sum": 356.0
+   },
+   "len_mean": {
+    "mean": 129.34415864617972,
+    "std": 34.30007438187216,
+    "sum": 1034.7532691694378
+   },
+   "short_ratio": {
+    "mean": 0.4031274670880649,
+    "std": 0.10086711088240119,
+    "sum": 3.2250197367045192
+   },
+   "coverage": {
+    "mean": 0.9700392768104652,
+    "std": 0.011015885125417107,
+    "sum": 7.760314214483722
+   },
+   "frag_rate": {
+    "mean": 0.19020999820931886,
+    "std": 0.09115477774525271,
+    "sum": 1.5216799856745509
+   },
+   "jump_rate": {
+    "mean": 0.18484564577764745,
+    "std": 0.23311851177391857,
+    "sum": 1.4787651662211796
+   },
+   "recoveries": {
+    "mean": 214.625,
+    "std": 136.23083089269582,
+    "sum": 1717.0
+   },
+   "mean_concurrent": {
+    "mean": 3.218583333333333,
+    "std": 1.3373568548232955,
+    "sum": 25.748666666666665
+   },
+   "tracker_ms_per_frame": {
+    "mean": 0.37651849166824525,
+    "std": 0.12678623725329052,
+    "sum": 3.012147933345962
+   }
+  },
+  "DeepSORT (motion)": {
+   "n_tracks": {
+    "mean": 63.625,
+    "std": 36.889555238770306,
+    "sum": 509.0
+   },
+   "len_median": {
+    "mean": 28.0,
+    "std": 11.338934190276817,
+    "sum": 224.0
+   },
+   "len_mean": {
+    "mean": 106.30846509959875,
+    "std": 48.99606223164559,
+    "sum": 850.46772079679
+   },
+   "short_ratio": {
+    "mean": 0.44963107901905314,
+    "std": 0.1272039564662807,
+    "sum": 3.597048632152425
+   },
+   "coverage": {
+    "mean": 0.9772919966487043,
+    "std": 0.01052851582192906,
+    "sum": 7.818335973189634
+   },
+   "frag_rate": {
+    "mean": 0.318300119772743,
+    "std": 0.10115203567322584,
+    "sum": 2.546400958181944
+   },
+   "jump_rate": {
+    "mean": 0.0883729775073222,
+    "std": 0.19258557381643598,
+    "sum": 0.7069838200585776
+   },
+   "recoveries": null,
+   "mean_concurrent": {
+    "mean": 3.7744166666666663,
+    "std": 1.66877318068437,
+    "sum": 30.19533333333333
+   },
+   "tracker_ms_per_frame": null
+  },
+  "ByteTrack": {
+   "n_tracks": {
+    "mean": 37.375,
+    "std": 19.500457870082364,
+    "sum": 299.0
+   },
+   "len_median": {
+    "mean": 62.125,
+    "std": 29.687359022221656,
+    "sum": 497.0
+   },
+   "len_mean": {
+    "mean": 160.16411869328297,
+    "std": 39.97154044735758,
+    "sum": 1281.3129495462638
+   },
+   "short_ratio": {
+    "mean": 0.2688032191848494,
+    "std": 0.17889630895167832,
+    "sum": 2.150425753478795
+   },
+   "coverage": {
+    "mean": 0.971762141398887,
+    "std": 0.011539020182124089,
+    "sum": 7.774097131191096
+   },
+   "frag_rate": {
+    "mean": 0.19068442819660025,
+    "std": 0.12394625015428468,
+    "sum": 1.525475425572802
+   },
+   "jump_rate": {
+    "mean": 0.059315700704270245,
+    "std": 0.11332204688334069,
+    "sum": 0.47452560563416196
+   },
+   "recoveries": {
+    "mean": 29.0,
+    "std": 26.549145802777588,
+    "sum": 232.0
+   },
+   "mean_concurrent": {
+    "mean": 3.7550000000000003,
+    "std": 1.650997389747295,
+    "sum": 30.040000000000003
+   },
+   "tracker_ms_per_frame": {
+    "mean": 0.4262734166654809,
+    "std": 0.1533099792371197,
+    "sum": 3.4101873333238473
+   }
+  },
+  "ByteTrack + TRC gate (ours)": {
+   "n_tracks": {
+    "mean": 37.0,
+    "std": 19.3980853252509,
+    "sum": 296.0
+   },
+   "len_median": {
+    "mean": 60.875,
+    "std": 29.191180174840483,
+    "sum": 487.0
+   },
+   "len_mean": {
+    "mean": 160.5383143006419,
+    "std": 40.95800644107626,
+    "sum": 1284.3065144051352
+   },
+   "short_ratio": {
+    "mean": 0.26099380504552916,
+    "std": 0.17500361187161176,
+    "sum": 2.0879504403642333
+   },
+   "coverage": {
+    "mean": 0.9718537465605717,
+    "std": 0.011648068346397936,
+    "sum": 7.774829972484573
+   },
+   "frag_rate": {
+    "mean": 0.1771891327063741,
+    "std": 0.13880458819529462,
+    "sum": 1.4175130616509928
+   },
+   "jump_rate": {
+    "mean": 0.074975948914304,
+    "std": 0.1137720273749034,
+    "sum": 0.599807591314432
+   },
+   "recoveries": {
+    "mean": 36.875,
+    "std": 30.791638475404326,
+    "sum": 295.0
+   },
+   "mean_concurrent": {
+    "mean": 3.7217499999999997,
+    "std": 1.6288868898729585,
+    "sum": 29.773999999999997
+   },
+   "tracker_ms_per_frame": {
+    "mean": 0.4251760999989074,
+    "std": 0.1524402460767829,
+    "sum": 3.401408799991259
+   }
+  }
+ }
+}

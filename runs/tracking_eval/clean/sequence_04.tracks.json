@@ -1,0 +1,126 @@
+[
+ {
+  "track_id": 1,
+  "cls": 2,
+  "cls_name": "car",
+  "first_frame": 2,
+  "last_frame": 1499,
+  "n_frames": 1498,
+  "mean_trc": 0.781,
+  "flags": []
+ },
+ {
+  "track_id": 2,
+  "cls": 1,
+  "cls_name": "person",
+  "first_frame": 12,
+  "last_frame": 45,
+  "n_frames": 34,
+  "mean_trc": 0.78,
+  "flags": []
+ },
+ {
+  "track_id": 4,
+  "cls": 1,
+  "cls_name": "person",
+  "first_frame": 80,
+  "last_frame": 120,
+  "n_frames": 41,
+  "mean_trc": 0.78,
+  "flags": []
+ },
+ {
+  "track_id": 5,
+  "cls": 1,
+  "cls_name": "person",
+  "first_frame": 150,
+  "last_frame": 168,
+  "n_frames": 19,
+  "mean_trc": 0.78,
+  "flags": []
+ },
+ {
+  "track_id": 6,
+  "cls": 1,
+  "cls_name": "person",
+  "first_frame": 584,
+  "last_frame": 1138,
+  "n_frames": 555,
+  "mean_trc": 0.781,
+  "flags": [
+   "erratic_path",
+   "loitering",
+   "pacing"
+  ]
+ },
+ {
+  "track_id": 8,
+  "cls": 1,
+  "cls_name": "person",
+  "first_frame": 1169,
+  "last_frame": 1176,
+  "n_frames": 8,
+  "mean_trc": 0.778,
+  "flags": []
+ },
+ {
+  "track_id": 9,
+  "cls": 1,
+  "cls_name": "person",
+  "first_frame": 1198,
+  "last_frame": 1219,
+  "n_frames": 22,
+  "mean_trc": 0.78,
+  "flags": []
+ },
+ {
+  "track_id": 11,
+  "cls": 1,
+  "cls_name": "person",
+  "first_frame": 1251,
+  "last_frame": 1257,
+  "n_frames": 7,
+  "mean_trc": 0.78,
+  "flags": []
+ },
+ {
+  "track_id": 12,
+  "cls": 1,
+  "cls_name": "person",
+  "first_frame": 1267,
+  "last_frame": 1274,
+  "n_frames": 8,
+  "mean_trc": 0.78,
+  "flags": []
+ },
+ {
+  "track_id": 13,
+  "cls": 1,
+  "cls_name": "person",
+  "first_frame": 1333,
+  "last_frame": 1451,
+  "n_frames": 84,
+  "mean_trc": 0.781,
+  "flags": []
+ },
+ {
+  "track_id": 14,
+  "cls": 1,
+  "cls_name": "person",
+  "first_frame": 1423,
+  "last_frame": 1442,
+  "n_frames": 20,
+  "mean_trc": 0.78,
+  "flags": []
+ },
+ {
+  "track_id": 16,
+  "cls": 1,
+  "cls_name": "person",
+  "first_frame": 1478,
+  "last_frame": 1499,
+  "n_frames": 22,
+  "mean_trc": 0.78,
+  "flags": []
+ }
+]

@@ -1,0 +1,97 @@
+\begin{table}[t]
+\centering
+\caption{Tracking on synthetic sequences with exact ground truth (degradation severity 0.5, 30 sequences, mean $\pm$ std).}
+\label{tab:synth_sev05}
+\begin{tabular}{lcccccccc}
+\toprule
+Tracker & HOTA & DetA & AssA & MOTA & IDF1 & IDSW & FP & FN \\
+\midrule
+SORT-style & 0.556 $\pm$ 0.056 & 0.602 $\pm$ 0.036 & 0.515 $\pm$ 0.079 & 0.745 $\pm$ 0.041 & 0.752 $\pm$ 0.075 & 12.8 $\pm$ 9.5 & 17.2 $\pm$ 10.1 & 769.2 $\pm$ 202.6 \\
+DeepSORT (motion) & 0.514 $\pm$ 0.052 & 0.576 $\pm$ 0.032 & 0.461 $\pm$ 0.075 & 0.702 $\pm$ 0.042 & 0.697 $\pm$ 0.072 & 15.9 $\pm$ 10.4 & 155.3 $\pm$ 53.0 & 755.4 $\pm$ 184.9 \\
+ByteTrack & 0.559 $\pm$ 0.057 & 0.608 $\pm$ 0.034 & 0.516 $\pm$ 0.084 & 0.754 $\pm$ 0.038 & 0.754 $\pm$ 0.078 & 12.4 $\pm$ 9.3 & 17.6 $\pm$ 10.5 & 739.3 $\pm$ 190.6 \\
+ByteTrack + TRC gate (ours) & 0.559 $\pm$ 0.056 & 0.607 $\pm$ 0.035 & 0.516 $\pm$ 0.080 & 0.751 $\pm$ 0.039 & 0.752 $\pm$ 0.076 & 12.5 $\pm$ 9.4 & 17.0 $\pm$ 10.1 & 748.9 $\pm$ 195.5 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[t]
+\centering
+\caption{Tracking on synthetic sequences with exact ground truth (degradation severity 1.0, 30 sequences, mean $\pm$ std).}
+\label{tab:synth_sev10}
+\begin{tabular}{lcccccccc}
+\toprule
+Tracker & HOTA & DetA & AssA & MOTA & IDF1 & IDSW & FP & FN \\
+\midrule
+SORT-style & 0.319 $\pm$ 0.082 & 0.380 $\pm$ 0.077 & 0.272 $\pm$ 0.092 & 0.471 $\pm$ 0.101 & 0.467 $\pm$ 0.119 & 17.8 $\pm$ 11.6 & 25.3 $\pm$ 13.2 & 1611.8 $\pm$ 446.3 \\
+DeepSORT (motion) & 0.359 $\pm$ 0.059 & 0.412 $\pm$ 0.056 & 0.317 $\pm$ 0.075 & 0.456 $\pm$ 0.095 & 0.525 $\pm$ 0.092 & 27.0 $\pm$ 18.7 & 357.5 $\pm$ 94.1 & 1309.6 $\pm$ 334.1 \\
+ByteTrack & 0.326 $\pm$ 0.083 & 0.388 $\pm$ 0.076 & 0.278 $\pm$ 0.094 & 0.480 $\pm$ 0.101 & 0.476 $\pm$ 0.121 & 17.6 $\pm$ 11.5 & 32.5 $\pm$ 18.7 & 1576.4 $\pm$ 434.4 \\
+ByteTrack + TRC gate (ours) & 0.323 $\pm$ 0.082 & 0.385 $\pm$ 0.077 & 0.275 $\pm$ 0.092 & 0.476 $\pm$ 0.102 & 0.471 $\pm$ 0.119 & 17.7 $\pm$ 11.5 & 30.1 $\pm$ 17.8 & 1590.0 $\pm$ 440.6 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[t]
+\centering
+\caption{Label-free tracking quality of the TriNetra tracker on the 14 real RGB-thermal clips.}
+\label{tab:real_clips}
+\begin{tabular}{lccccccccccc}
+\toprule
+Clip & Frames & TRC mean & TRC min & Tracks & Median len & Short (<1 s) & Coverage & Frag. rate & Jumps/1k & Recoveries & Behaviour flags (tracks) \\
+\midrule
+seq 01 & 1500 & 0.78 & 0.78 & 50 & 56 & 0.12 & 0.98 & 0.08 & 0.1 & 22 & — \\
+seq 02 & 1500 & 0.76 & 0.75 & 29 & 76 & 0.10 & 0.97 & 0.03 & 0.0 & 30 & — \\
+seq 03 & 1500 & 0.78 & 0.78 & 15 & 101 & 0.13 & 0.97 & 0.13 & 0.0 & 17 & — \\
+seq 04 & 1500 & 0.78 & 0.77 & 12 & 22 & 0.58 & 0.98 & 0.42 & 0.0 & 2 & — \\
+seq 05 & 1500 & 0.78 & 0.78 & 28 & 26 & 0.39 & 0.98 & 0.29 & 0.2 & 19 & — \\
+seq 06 & 1500 & 0.75 & 0.72 & 56 & 46 & 0.39 & 0.95 & 0.09 & 0.0 & 71 & — \\
+seq 07 & 1500 & 0.72 & 0.68 & 66 & 64 & 0.21 & 0.96 & 0.30 & 0.3 & 94 & — \\
+seq 08 & 1500 & 0.75 & 0.73 & 40 & 95 & 0.15 & 0.98 & 0.07 & 0.0 & 40 & — \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[t]
+\centering
+\caption{Tracker comparison on real footage (label-free metrics, mean $\pm$ std over 14 clips).}
+\label{tab:real_compare}
+\begin{tabular}{lcccccccc}
+\toprule
+Tracker & Total tracks & Median len & Short ratio & Coverage & Frag. rate & Jumps/1k & Recoveries & ms/frame \\
+\midrule
+SORT-style & 319 & 44.5 $\pm$ 19.5 & 0.40 $\pm$ 0.10 & 0.97 $\pm$ 0.01 & 0.19 $\pm$ 0.09 & 0.2 $\pm$ 0.2 & 1717 & 0.38 \\
+DeepSORT (motion) & 509 & 28.0 $\pm$ 11.3 & 0.45 $\pm$ 0.13 & 0.98 $\pm$ 0.01 & 0.32 $\pm$ 0.10 & 0.1 $\pm$ 0.2 & n/a & n/a \\
+ByteTrack & 299 & 62.1 $\pm$ 29.7 & 0.27 $\pm$ 0.18 & 0.97 $\pm$ 0.01 & 0.19 $\pm$ 0.12 & 0.1 $\pm$ 0.1 & 232 & 0.43 \\
+ByteTrack + TRC gate (ours) & 296 & 60.9 $\pm$ 29.2 & 0.26 $\pm$ 0.18 & 0.97 $\pm$ 0.01 & 0.18 $\pm$ 0.14 & 0.1 $\pm$ 0.1 & 295 & 0.43 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[t]
+\centering
+\caption{Detector behaviour on real footage as a function of frame TRC under thermal degradation.}
+\label{tab:coupling}
+\begin{tabular}{lccccc}
+\toprule
+TRC bin & Frames & Recall vs clean & Mean IoU (matched) & Score ratio & Detections/frame ratio \\
+\midrule
+0.40-0.60 & 300 & 0.89 & 0.89 & 0.80 & 0.74 \\
+0.60-0.75 & 1500 & 0.97 & 0.90 & 0.93 & 0.88 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[t]
+\centering
+\caption{Identity stability of each tracker when the thermal stream is degraded (real footage).}
+\label{tab:stress}
+\begin{tabular}{lcccc}
+\toprule
+Tracker & IDF1 & HOTA & AssA & IDSW \\
+\midrule
+SORT-style & 0.733 $\pm$ 0.124 & 0.630 $\pm$ 0.122 & 0.654 $\pm$ 0.178 & 5.2 $\pm$ 2.4 \\
+DeepSORT (motion) & 0.658 $\pm$ 0.083 & 0.592 $\pm$ 0.071 & 0.538 $\pm$ 0.120 & 38.0 $\pm$ 22.7 \\
+ByteTrack & 0.790 $\pm$ 0.085 & 0.695 $\pm$ 0.090 & 0.696 $\pm$ 0.151 & 6.2 $\pm$ 4.1 \\
+ByteTrack + TRC gate (ours) & 0.793 $\pm$ 0.082 & 0.702 $\pm$ 0.071 & 0.709 $\pm$ 0.131 & 6.2 $\pm$ 3.9 \\
+\bottomrule
+\end{tabular}
+\end{table}
