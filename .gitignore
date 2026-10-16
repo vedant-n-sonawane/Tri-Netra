@@ -41,3 +41,8 @@ datasets/RGB/*.mp4
 
 # Run logs
 *.log
+
+# Research paper drafts and the copyright registration are kept private
+# (not distributed with the code).
+TRI-Netra Research Paper/
+Copyright-TriNetra*.pdf
