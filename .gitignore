@@ -29,3 +29,15 @@ weights/ablation/
 # Copyrighted third-party reference papers (IEEE/Elsevier/ACM/MDPI) - do not
 # redistribute. TriNetra's own paper draft lives in "TRI-Netra Research Paper/".
 IMP Research Paper/
+
+# Raw surveillance video clips (~830 MB; several exceed GitHub's 100 MB file
+# limit). Kept locally only; see PHASE6_TRACKING_IMPLEMENTATION.md for how the
+# clips are used.
+datasets/RGB/*.mp4
+
+# ReID appearance-embedding caches (15-58 MB each). Regenerate with
+# utils/compute_reid_cache.py.
+*.embeds.npz
+
+# Run logs
+*.log
