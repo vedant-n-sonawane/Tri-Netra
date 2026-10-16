@@ -64,8 +64,17 @@ def predict(
     output_path: str = "runs/predictions/output.jpg",
     conf_override: float | None = None,
     device: str | None = None,
+    class_id_map_override: dict | None = None,
 ):
-    """Run one image pair through a checkpoint; save + return the annotated image."""
+    """Run one image pair through a checkpoint; save + return the annotated image.
+
+    class_id_map_override: unified-category-id -> COCO-head-index map to use
+        INSTEAD of the checkpoint's own cfg_snapshot / config value. Display-
+        only — it does not retrain or touch the checkpoint, it just changes
+        which of the frozen 80-class head's outputs get kept and drawn. Use
+        this to inspect classes the checkpoint's own detection.class_id_map
+        wasn't (yet) extended to cover.
+    """
     from datasets.augmentations import build_transforms
     from preprocessing.pipeline import build_preprocess_pipeline
     from training.evaluate import decode_predictions, load_checkpoint_model
@@ -73,12 +82,14 @@ def predict(
 
     with open(config_path, "r", encoding="utf-8") as f:
         cfg = yaml.safe_load(f)
-    if conf_override is not None:
-        cfg.setdefault("detection", {})["confidence_threshold"] = float(conf_override)
     device = device or ("cuda" if torch.cuda.is_available() else "cpu")
 
     model, cfg = load_checkpoint_model(checkpoint, cfg, device)
     model.eval()
+    # Applied AFTER loading: load_checkpoint_model swaps in the checkpoint's own
+    # config snapshot, which would silently discard an override set beforehand.
+    if conf_override is not None:
+        cfg.setdefault("detection", {})["confidence_threshold"] = float(conf_override)
 
     vis_img = Image.open(visible_path).convert("RGB")
     thr_img = Image.open(thermal_path).convert("L")
@@ -98,7 +109,7 @@ def predict(
     thr_t = thr_t.unsqueeze(0).to(device)
     trc_t = torch.tensor([trc], dtype=torch.float32, device=device)
 
-    class_map = get_class_id_map(cfg)                       # unified -> head index
+    class_map = class_id_map_override or get_class_id_map(cfg)  # unified -> head index
     head_classes = sorted(set(class_map.values()))
     coco_from_head = {v: k for k, v in class_map.items()}
     id_to_name = {c["id"]: c["name"] for c in cfg["datasets"]["categories"]}
