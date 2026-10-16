@@ -71,6 +71,7 @@ def main() -> int:
     cfg = load_config()
     cfg.setdefault("tracking", {})
     cfg["tracking"]["embedder"] = None   # motion+IoU only — no real frame needed
+    cfg["tracking"]["algorithm"] = "deepsort"   # default is now bytetrack
     min_hits = int(cfg["tracking"].get("min_hits", 3))
 
     tracker = FusionTracker(cfg)
