@@ -15,12 +15,16 @@ Per frame:  read RGB + thermal -> preprocess (Phase 3; yields the frame TRC)
 Outputs (next to ``--output``):
     <name>.mp4          annotated video
     <name>.tracks.json  one summary per track (class, span, mean TRC, flags)
-    <name>.frames.jsonl one line per frame (frame TRC + the reported tracks)
+    <name>.frames.jsonl one line per frame (frame TRC, tracks, threat level, alert ids)
+    <name>.alerts.json  every alert raised (kind, frame, level, reasons, snapshot)
     <name>.dets.npz     raw per-frame detections + TRC (with --save-detections),
                         so tracker variants can be compared without re-running the model
 
-Scope: this is the detect->track->annotate path used by Phase 6. Risk scoring
-(Phase 7) and live camera capture (Phase 9, ``realtime.py``) are not part of it.
+Each frame also gets a rule-based threat level (Phase 7, models/risk_model/
+threat_scorer.py) drawn as a banner, and the alert manager (Phase 8,
+models/risk_model/alerts.py) turns those levels into alerts written to
+<name>.alerts.json with a snapshot per alert in <name>_alerts/. Live camera
+capture (Phase 9, ``realtime.py``) is not part of this path.
 
 Usage:
     python inference/video.py --sequence 5 --max-frames 300
@@ -64,6 +68,29 @@ def clip_paths(sequence: int, root: Path = PROJECT_ROOT / "datasets"):
             root / "thermal" / f"sequence_{sequence:02d}_1min_Thermal.mp4")
 
 
+# BGR banner colour per threat level (1 benign .. 5 critical)
+LEVEL_BGR = {1: (80, 160, 80), 2: (60, 170, 190), 3: (40, 150, 235), 4: (30, 90, 235), 5: (40, 40, 210)}
+
+
+def _draw_threat_banner(canvas: np.ndarray, threat: dict, alerted: bool) -> np.ndarray:
+    """Threat level strip across the top of the output frame; red border on an alert frame."""
+    h, w = canvas.shape[:2]
+    bar = max(28, h // 14)
+    lvl = int(threat["level"])
+    cv2.rectangle(canvas, (0, 0), (w, bar), (25, 25, 25), -1)
+    cv2.rectangle(canvas, (0, 0), (min(w, 190), bar), LEVEL_BGR[lvl], -1)
+    scale = bar / 40
+    cv2.putText(canvas, f"THREAT {lvl}/5", (8, int(bar * 0.72)), cv2.FONT_HERSHEY_SIMPLEX,
+                0.75 * scale, (255, 255, 255), 2)
+    reason = "; ".join(threat["reasons"])
+    max_chars = max(10, int((w - 200) / (11 * scale)))
+    cv2.putText(canvas, reason[:max_chars], (200, int(bar * 0.68)), cv2.FONT_HERSHEY_SIMPLEX,
+                0.5 * scale, (235, 235, 235), 1)
+    if alerted:
+        cv2.rectangle(canvas, (0, 0), (w - 1, h - 1), (0, 0, 255), 6)
+    return canvas
+
+
 def process_video(
     visible_video: str,
     thermal_video: str,
@@ -85,6 +112,8 @@ def process_video(
     progress_cb=None,
 ):
     from datasets.augmentations import build_transforms
+    from models.risk_model.alerts import AlertManager
+    from models.risk_model.threat_scorer import find_thermal_only, score_frame
     from models.tracker import build_tracker
     from preprocessing.pipeline import build_preprocess_pipeline
     from training.evaluate import decode_predictions, load_checkpoint_model
@@ -98,7 +127,13 @@ def process_video(
 
     model, cfg = load_checkpoint_model(checkpoint, run_cfg, device)   # cfg = checkpoint snapshot
     model.eval()
-    # the tracker wants low-confidence detections too (ByteTrack's second stage)
+    # threat scoring uses the deployment threshold; the tracker gets the low-confidence boxes too
+    threat_conf = float(cfg.get("detection", {}).get("confidence_threshold", 0.25))
+    risk_cfg = run_cfg.get("risk_model", {}) or {}
+    threat_cfg = risk_cfg.get("threat", {}) or {}
+    night_rgb = float(threat_cfg.get("night_rgb_mean", 70.0))
+    alert_mgr = AlertManager(risk_cfg.get("alerts", {}))
+    # ByteTrack's second stage needs the low-confidence detections too
     low = float(run_cfg["tracking"].get("matching", {}).get("low_conf_threshold", 0.1))
     cfg.setdefault("detection", {})["confidence_threshold"] = low
 
@@ -132,6 +167,7 @@ def process_video(
               if write_video else None)
 
     frames_log = open(out_path.with_suffix(".frames.jsonl"), "w", encoding="utf-8")
+    snap_dir = out_path.parent / (out_path.stem + "_alerts")
     track_info: dict[int, dict] = {}
     det_rows, trc_rows = [], []
     n_dets_total = 0
@@ -188,10 +224,24 @@ def process_video(
             info["trc_sum"] += t["trc"]
             info["flags"].update(t["behaviour"].get("anomaly_flags", []))
 
+        # Phase 7/8: frame threat level from the confident detections, then alerts
+        boxes = [(d[0], d[1], d[2], d[3], int(d[5]), d[4]) for d in dets if d[4] >= threat_conf]
+        vis_gray = cv2.cvtColor(frame_v, cv2.COLOR_BGR2GRAY)
+        rgb_mean = float(vis_gray.mean())
+        hidden = []
+        if rgb_mean < night_rgb and any(b[4] == 1 for b in boxes):
+            hidden = find_thermal_only(boxes, vis_gray.astype(np.float64),
+                                       thr[:, :, 0].astype(np.float64), threat_cfg)
+        threat = score_frame(boxes, rgb_mean=rgb_mean, trc=trc, thermal_only=hidden, cfg=threat_cfg)
+        new_alerts = alert_mgr.update(fi, threat, trc, tracks)
+
         frames_log.write(json.dumps({
             "frame": fi, "trc": round(trc, 4), "n_dets": len(dets),
             "tracks": [[t["track_id"], *[round(v, 1) for v in t["bbox_xyxy"]], t["cls"],
-                        round(t["conf"], 3)] for t in tracks]}) + "\n")
+                        round(t["conf"], 3)] for t in tracks],
+            "threat": {"level": threat["level"], "label": threat["label"], "reasons": threat["reasons"],
+                       "rgb_mean": round(rgb_mean, 1), "thermal_only": len(hidden)},
+            "alerts": [a["alert_id"] for a in new_alerts]}) + "\n")
         if save_detections:
             for r in dets:
                 det_rows.append([fi, *r.tolist()])
@@ -207,7 +257,14 @@ def process_video(
                     x1, y1, x2, y2 = (int(v * sc) for v in t["bbox_xyxy"])
                     cv2.rectangle(thr_vis, (x1, y1), (x2, y2), (0, 255, 255), 1)
                 panel = np.hstack([panel, thr_vis])
+            panel = _draw_threat_banner(panel, threat, alerted=bool(new_alerts))
             writer.write(panel)
+            if new_alerts:
+                snap_dir.mkdir(parents=True, exist_ok=True)
+                for a in new_alerts:
+                    snap = snap_dir / f"alert_{a['alert_id']:03d}_f{fi}.jpg"
+                    cv2.imwrite(str(snap), panel)
+                    a["snapshot"] = str(snap)
 
         processed += 1
         if progress_cb is not None:
@@ -229,6 +286,7 @@ def process_video(
                           "mean_trc": round(info["trc_sum"] / max(1, info["n_frames"]), 3),
                           "flags": sorted(info["flags"])})
     out_path.with_suffix(".tracks.json").write_text(json.dumps(summaries, indent=1), encoding="utf-8")
+    out_path.with_suffix(".alerts.json").write_text(json.dumps(alert_mgr.alerts, indent=1), encoding="utf-8")
     if save_detections:
         np.savez_compressed(out_path.with_suffix(".dets.npz"),
                             dets=np.array(det_rows, dtype=np.float64).reshape(-1, 7),
@@ -238,8 +296,8 @@ def process_video(
     return {
         "frames": processed, "elapsed_s": round(elapsed, 1), "fps": round(processed / max(elapsed, 1e-9), 2),
         "detections": n_dets_total, "tracks_created": tracker._next_id - 1,
-        "tracks_reported": len(summaries), "output": str(out_path),
-        "track_summaries": summaries,
+        "tracks_reported": len(summaries), "alerts": len(alert_mgr.alerts), "output": str(out_path),
+        "track_summaries": summaries, "alert_list": alert_mgr.alerts,
     }
 
 
@@ -284,8 +342,10 @@ def main() -> int:
                         save_detections=args.save_detections, log_every=args.log_every,
                         write_video=not args.no_video)
     print("\n=== summary ===")
-    for k in ("frames", "elapsed_s", "fps", "detections", "tracks_created", "tracks_reported", "output"):
+    for k in ("frames", "elapsed_s", "fps", "detections", "tracks_created", "tracks_reported", "alerts", "output"):
         print(f"  {k:<16}{res[k]}")
+    for a in res["alert_list"]:
+        print(f"  ALERT #{a['alert_id']} frame {a['frame']} [{a['kind']}] {a['title']}: {'; '.join(a['reasons'])}")
     return 0
 
 

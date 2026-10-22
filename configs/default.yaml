@@ -304,6 +304,18 @@ tracking:
 risk_model:
   num_threat_levels: 5            # 1 (benign) → 5 (critical)
   temporal_window: 30             # Frames of history for behaviour analysis
+  threat:                         # Phase 7 rule-based scorer (models/risk_model/threat_scorer.py)
+    night_rgb_mean: 70.0          # mean RGB luminance below this = night / RGB unreliable
+    crowd_medium: 5
+    crowd_large: 10
+    congestion_vehicles: 10
+    near_margin: 0.5              # person "near" a vehicle within this x the vehicle's larger side
+    low_trc: 0.5
+  alerts:                         # Phase 8 alert generation (models/risk_model/alerts.py)
+    min_level: 4                  # threat level that raises an alert (4 = high)
+    persist_frames: 2             # consecutive frames before an alert fires
+    cooldown_frames: 25           # same-or-lower level re-alerts no sooner than this
+    low_trc: 0.5                  # thermal-unreliable sensor alert below this TRC
 
 # ── Training ───────────────────────────────────────────────────────────────
 # Table 4 (reference "Experimental Setting"): SGD lr0=0.01, momentum=0.937,
