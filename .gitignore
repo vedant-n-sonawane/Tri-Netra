@@ -46,3 +46,12 @@ datasets/RGB/*.mp4
 # (not distributed with the code).
 TRI-Netra Research Paper/
 Copyright-TriNetra*.pdf
+.venv/
+
+# Generated demo/test outputs (regenerate with utils/make_test_video.py, utils/score_threats.py,
+# utils/compare_fusion_vs_rgb.py and the web console)
+datasets/test_video/
+runs/threats/
+runs/fusion_vs_rgb/
+runs/tracking/alert_test_*
+runs/tracking_ui/2026*/

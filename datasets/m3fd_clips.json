@@ -1,0 +1,72 @@
+{
+  "1": {
+    "first": "00326.png",
+    "last": "00336.png",
+    "frames": 11
+  },
+  "2": {
+    "first": "01449.png",
+    "last": "01458.png",
+    "frames": 10
+  },
+  "3": {
+    "first": "01471.png",
+    "last": "01480.png",
+    "frames": 10
+  },
+  "4": {
+    "first": "03877.png",
+    "last": "03889.png",
+    "frames": 13
+  },
+  "5": {
+    "first": "03890.png",
+    "last": "03931.png",
+    "frames": 42
+  },
+  "6": {
+    "first": "03966.png",
+    "last": "03989.png",
+    "frames": 24
+  },
+  "7": {
+    "first": "03990.png",
+    "last": "04007.png",
+    "frames": 18
+  },
+  "8": {
+    "first": "04008.png",
+    "last": "04020.png",
+    "frames": 13
+  },
+  "9": {
+    "first": "04039.png",
+    "last": "04056.png",
+    "frames": 18
+  },
+  "10": {
+    "first": "04069.png",
+    "last": "04093.png",
+    "frames": 25
+  },
+  "11": {
+    "first": "01863.png",
+    "last": "01896.png",
+    "frames": 34
+  },
+  "12": {
+    "first": "01935.png",
+    "last": "01975.png",
+    "frames": 41
+  },
+  "13": {
+    "first": "02364.png",
+    "last": "02394.png",
+    "frames": 31
+  },
+  "14": {
+    "first": "03792.png",
+    "last": "03823.png",
+    "frames": 32
+  }
+}

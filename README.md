@@ -100,8 +100,8 @@ python -m training.evaluate --checkpoint weights/fusion/trinetra_fusion_trc_v1.p
 | 4     | Cross-modal fusion module                | ✅ Complete   |
 | 5     | Detection integration & training         | ✅ Complete (trained model: release v1.0) |
 | 6     | Tracking & behaviour analysis            | ✅ Complete (ByteTrack + TRC gate, ReID, behaviour flags) |
-| 7     | Hierarchical threat reasoning            | 🔲 Planned   |
-| 8     | Explainable alert generation             | 🔲 Planned   |
+| 7     | Hierarchical threat reasoning            | ✅ Complete (rule-based levels 1–5 with reasons: `models/risk_model/threat_scorer.py`) |
+| 8     | Explainable alert generation             | ✅ Complete (threat, sensor and behaviour alerts: `models/risk_model/alerts.py`; tactical web console: `app/tracking_ui.py`) |
 | 9     | Real-time inference & deployment         | 🔲 Planned   |
 
 ---
